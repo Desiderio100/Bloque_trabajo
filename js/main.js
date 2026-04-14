@@ -187,17 +187,18 @@ function initContactForm() {
     hideAlerts(alertOk, alertErr);
 
     try {
-      /* PASO 3: Llamar a la API de EmailJS
-         - EMAILJS_SERVICE_ID  → qué proveedor de email usar (Gmail, Outlook…)
-         - EMAILJS_TEMPLATE_ID → qué plantilla de email usar
-         - form                → el formulario HTML cuyos campos se mapean al template
+      const templateParams = {
+        from_name: form.from_name.value.trim(),
+        from_email: form.from_email.value.trim(),
+        subject: form.subject.value.trim(),
+        message: form.message.value.trim(),
+      };
 
-         EmailJS lee los atributos "name" de cada campo del formulario:
-           name="from_name"  → {{from_name}} en el template
-           name="from_email" → {{from_email}} en el template
-           name="message"    → {{message}} en el template
+      /* PASO 3: Llamar a la API de EmailJS con parámetros explícitos.
+         Esto evita problemas si el navegador o el SDK no resuelven bien
+         el formulario completo en entornos locales.
       */
-      await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form, {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, {
         publicKey: EMAILJS_PUBLIC_KEY,
       });
 
@@ -210,7 +211,7 @@ function initContactForm() {
       // PASO 5: Algo falló (credenciales incorrectas, sin internet, etc.)
       console.error('Error al enviar notificación:', error);
       alertErr.classList.add('visible');
-      const errorDetail = error?.text || error?.message || JSON.stringify(error) || 'Revisa tus credenciales de EmailJS.';
+      const errorDetail = error?.text || error?.message || (typeof error === 'string' ? error : '') || JSON.stringify(error) || 'Revisa tus credenciales de EmailJS.';
       const errorStatus = error?.status ? ` (${error.status})` : '';
       alertErr.textContent = `Error${errorStatus}: ${errorDetail}`;
 
