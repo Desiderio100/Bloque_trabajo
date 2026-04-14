@@ -45,11 +45,6 @@
 
 /* ─── INICIALIZACIÓN ────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
-  const publicKey = window.EMAILJS_PUBLIC_KEY;
-  if (!publicKey) {
-    console.error('EmailJS no pudo cargar la public key. Revisa js/config.js y el orden de scripts.');
-    return;
-  }
 
   initTypingEffect();
   initScrollReveal();
@@ -195,18 +190,15 @@ function initContactForm() {
         message: form.message.value.trim(),
       };
 
-      /* PASO 3: Llamar a la API de EmailJS con parámetros explícitos.
-         Esto evita problemas si el navegador o el SDK no resuelven bien
-         el formulario completo en entornos locales.
-      */
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, {
-        publicKey,
-      });
+      const result = await emailjs.send(
+        window.EMAILJS_SERVICE_ID,
+        window.EMAILJS_TEMPLATE_ID,
+        templateParams
+      );
 
-      // PASO 4: Notificación enviada exitosamente
-      console.log('✅ Notificación enviada correctamente');
+      console.log('✅ Email enviado:', result);
       alertOk.classList.add('visible');
-      form.reset(); // Limpia el formulario
+      form.reset();
 
     } catch (error) {
       // PASO 5: Algo falló (credenciales incorrectas, sin internet, etc.)
