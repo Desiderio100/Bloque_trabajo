@@ -54,6 +54,14 @@ jobs:
           const EMAILJS_PUBLIC_KEY  = "${EMAILJS_PUBLIC_KEY}";
           const EMAILJS_SERVICE_ID  = "${EMAILJS_SERVICE_ID}";
           const EMAILJS_TEMPLATE_ID = "${EMAILJS_TEMPLATE_ID}";
+
+          window.EMAILJS_PUBLIC_KEY = EMAILJS_PUBLIC_KEY;
+          window.EMAILJS_SERVICE_ID = EMAILJS_SERVICE_ID;
+          window.EMAILJS_TEMPLATE_ID = EMAILJS_TEMPLATE_ID;
+
+          if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY) {
+            emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+          }
           JSEOF
 
       - name: Configurar GitHub Pages

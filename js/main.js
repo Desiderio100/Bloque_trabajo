@@ -170,6 +170,15 @@ function initContactForm() {
   const btnSpinner = document.getElementById('btn-spinner');
   const alertOk    = document.getElementById('alert-success');
   const alertErr   = document.getElementById('alert-error');
+  const publicKey  = window.EMAILJS_PUBLIC_KEY || (typeof EMAILJS_PUBLIC_KEY !== 'undefined' ? EMAILJS_PUBLIC_KEY : '');
+  const serviceId  = window.EMAILJS_SERVICE_ID || (typeof EMAILJS_SERVICE_ID !== 'undefined' ? EMAILJS_SERVICE_ID : '');
+  const templateId = window.EMAILJS_TEMPLATE_ID || (typeof EMAILJS_TEMPLATE_ID !== 'undefined' ? EMAILJS_TEMPLATE_ID : '');
+
+  if (!publicKey || !serviceId || !templateId) {
+    alertErr.classList.add('visible');
+    alertErr.textContent = 'Falta configurar EmailJS (Public Key, Service ID o Template ID). Revisa js/config.js y los Secrets de GitHub.';
+    return;
+  }
 
   form.addEventListener('submit', async (event) => {
     // Previene el comportamiento nativo del formulario (recargar la página)
@@ -191,9 +200,10 @@ function initContactForm() {
       };
 
       const result = await emailjs.send(
-        window.EMAILJS_SERVICE_ID,
-        window.EMAILJS_TEMPLATE_ID,
-        templateParams
+        serviceId,
+        templateId,
+        templateParams,
+        { publicKey }
       );
 
       console.log('✅ Email enviado:', result);

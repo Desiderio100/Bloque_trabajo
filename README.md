@@ -183,7 +183,7 @@ Antes de activar Pages, agrega las credenciales de EmailJS como Secrets:
 
 | Name | Value |
 |------|-------|
-| `   ` | tu Public Key |
+| `EMAILJS_PUBLIC_KEY` | tu Public Key |
 | `EMAILJS_SERVICE_ID` | tu Service ID |
 | `EMAILJS_TEMPLATE_ID` | tu Template ID |
 
