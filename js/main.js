@@ -170,9 +170,17 @@ function initContactForm() {
   const btnSpinner = document.getElementById('btn-spinner');
   const alertOk    = document.getElementById('alert-success');
   const alertErr   = document.getElementById('alert-error');
-  const publicKey  = window.EMAILJS_PUBLIC_KEY || (typeof EMAILJS_PUBLIC_KEY !== 'undefined' ? EMAILJS_PUBLIC_KEY : '');
-  const serviceId  = window.EMAILJS_SERVICE_ID || (typeof EMAILJS_SERVICE_ID !== 'undefined' ? EMAILJS_SERVICE_ID : '');
-  const templateId = window.EMAILJS_TEMPLATE_ID || (typeof EMAILJS_TEMPLATE_ID !== 'undefined' ? EMAILJS_TEMPLATE_ID : '');
+
+  // Respaldo para despliegues donde GitHub Actions no inyecta config.js.
+  const fallbackConfig = {
+    publicKey: '34BIMIRrgHfd4kbRc',
+    serviceId: 'service_hdk25xt',
+    templateId: 'template_pbo4ret',
+  };
+
+  const publicKey  = window.EMAILJS_PUBLIC_KEY || (typeof EMAILJS_PUBLIC_KEY !== 'undefined' ? EMAILJS_PUBLIC_KEY : '') || fallbackConfig.publicKey;
+  const serviceId  = window.EMAILJS_SERVICE_ID || (typeof EMAILJS_SERVICE_ID !== 'undefined' ? EMAILJS_SERVICE_ID : '') || fallbackConfig.serviceId;
+  const templateId = window.EMAILJS_TEMPLATE_ID || (typeof EMAILJS_TEMPLATE_ID !== 'undefined' ? EMAILJS_TEMPLATE_ID : '') || fallbackConfig.templateId;
 
   if (!publicKey || !serviceId || !templateId) {
     alertErr.classList.add('visible');
