@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Inicializa EmailJS con tu clave pública.
   // Esto autentica las llamadas a la API sin exponer una clave privada.
-  emailjs.init(EMAILJS_PUBLIC_KEY);
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
   initTypingEffect();
   initScrollReveal();
@@ -197,7 +197,9 @@ function initContactForm() {
            name="from_email" → {{from_email}} en el template
            name="message"    → {{message}} en el template
       */
-      await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form);
+      await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form, {
+        publicKey: EMAILJS_PUBLIC_KEY,
+      });
 
       // PASO 4: Notificación enviada exitosamente
       console.log('✅ Notificación enviada correctamente');
@@ -208,7 +210,7 @@ function initContactForm() {
       // PASO 5: Algo falló (credenciales incorrectas, sin internet, etc.)
       console.error('Error al enviar notificación:', error);
       alertErr.classList.add('visible');
-      const errorDetail = error?.text || error?.message || 'Revisa tus credenciales de EmailJS.';
+      const errorDetail = error?.text || error?.message || JSON.stringify(error) || 'Revisa tus credenciales de EmailJS.';
       const errorStatus = error?.status ? ` (${error.status})` : '';
       alertErr.textContent = `Error${errorStatus}: ${errorDetail}`;
 
