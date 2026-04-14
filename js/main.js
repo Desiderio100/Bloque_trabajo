@@ -45,10 +45,10 @@
 
 /* ─── INICIALIZACIÓN ────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
-
-  // Inicializa EmailJS con tu clave pública.
-  // Esto autentica las llamadas a la API sin exponer una clave privada.
-  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  if (typeof EMAILJS_PUBLIC_KEY === 'undefined' || !EMAILJS_PUBLIC_KEY) {
+    console.error('EmailJS no pudo cargar la public key. Revisa js/config.js y el orden de scripts.');
+    return;
+  }
 
   initTypingEffect();
   initScrollReveal();
