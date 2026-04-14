@@ -10,6 +10,6 @@
    a partir de los Secrets del repositorio.
    ═══════════════════════════════════════════════════════════════ */
 
-const EMAILJS_PUBLIC_KEY  = ILfNTGE7jrAZ2qlq ;   // Account → API Keys
-const EMAILJS_SERVICE_ID  = service_hdk25xt ;   // Email Services → Service ID
-const EMAILJS_TEMPLATE_ID = template_pbo4ret ;  // Email Templates → Template ID
+const EMAILJS_PUBLIC_KEY  = '1ILfNTGE7jrAZ2qlq';   // Account → API Keys
+const EMAILJS_SERVICE_ID  = 'service_hdk25xt';   // Email Services → Service ID
+const EMAILJS_TEMPLATE_ID = 'template_pbo4ret';  // Email Templates → Template ID

@@ -208,7 +208,9 @@ function initContactForm() {
       // PASO 5: Algo falló (credenciales incorrectas, sin internet, etc.)
       console.error('Error al enviar notificación:', error);
       alertErr.classList.add('visible');
-      alertErr.textContent = `Error (${error.status}): ${error.text || 'Revisa tus credenciales de EmailJS.'}`;
+      const errorDetail = error?.text || error?.message || 'Revisa tus credenciales de EmailJS.';
+      const errorStatus = error?.status ? ` (${error.status})` : '';
+      alertErr.textContent = `Error${errorStatus}: ${errorDetail}`;
 
     } finally {
       // Siempre restaurar el botón, sin importar si hubo éxito o error
