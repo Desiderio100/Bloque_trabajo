@@ -45,7 +45,8 @@
 
 /* ─── INICIALIZACIÓN ────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
-  if (typeof EMAILJS_PUBLIC_KEY === 'undefined' || !EMAILJS_PUBLIC_KEY) {
+  const publicKey = window.EMAILJS_PUBLIC_KEY;
+  if (!publicKey) {
     console.error('EmailJS no pudo cargar la public key. Revisa js/config.js y el orden de scripts.');
     return;
   }
@@ -199,7 +200,7 @@ function initContactForm() {
          el formulario completo en entornos locales.
       */
       await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, {
-        publicKey: EMAILJS_PUBLIC_KEY,
+        publicKey,
       });
 
       // PASO 4: Notificación enviada exitosamente
