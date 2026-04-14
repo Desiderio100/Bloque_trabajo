@@ -169,7 +169,7 @@ git add .
 git commit -m "feat: portafolio con sistema de notificaciones"
 
 # 2. Crea un repositorio en GitHub (sin README) y conéctalo
-git remote add origin https://github.com/TU_USUARIO/mi-portafolio.git
+git remote add origin https://github.com/Desiderio100/Bloque_trabajo.git
 git branch -M main
 git push -u origin main
 ```
@@ -183,7 +183,7 @@ Antes de activar Pages, agrega las credenciales de EmailJS como Secrets:
 
 | Name | Value |
 |------|-------|
-| `EMAILJS_PUBLIC_KEY` | tu Public Key |
+| `   ` | tu Public Key |
 | `EMAILJS_SERVICE_ID` | tu Service ID |
 | `EMAILJS_TEMPLATE_ID` | tu Template ID |
 
